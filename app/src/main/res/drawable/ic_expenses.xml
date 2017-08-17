@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="@dimen/transactions_logo_size"
+  android:height="@dimen/transactions_logo_size"
+  android:viewportHeight="64.0"
+  android:viewportWidth="64.0">
+  <path android:fillColor="#fff2f2f2"
+    android:pathData="M0,0h68v68h-68z"
+    android:strokeColor="#00000000"
+    android:strokeWidth="1.0" />
+  <path android:fillColor="#ffe1b981"
+    android:pathData="M44,38L44,16L20,16L20,21L18,21L18,48L46,48L46,40L44,38ZM22,21L22,18L42,18L42,36L26,21L22,21ZM36,25L40,25L40,27L36,27L36,25ZM31,21L40,21L40,23L31,23L31,21Z"
+    android:strokeColor="#00000000"
+    android:strokeWidth="1.0" />
+</vector>

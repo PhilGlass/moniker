@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingBottom="@dimen/spacing_large"
+  android:paddingTop="@dimen/spacing_large">
+
+  <android.support.constraint.Guideline
+    android:id="@+id/start_inset"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_begin="@dimen/spacing_large" />
+
+  <android.support.constraint.Guideline
+    android:id="@+id/end_inset"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_end="@dimen/spacing_large" />
+
+  <ImageView
+    android:id="@+id/detail_logo"
+    android:layout_width="@dimen/detail_logo_size"
+    android:layout_height="@dimen/detail_logo_size"
+    android:contentDescription="@null"
+    app:layout_constraintStart_toStartOf="@id/start_inset"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/detail_amount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:includeFontPadding="false"
+    app:layout_constraintBottom_toTopOf="@+id/detail_local_amount"
+    app:layout_constraintEnd_toEndOf="@id/end_inset"
+    app:layout_constraintTop_toTopOf="@+id/detail_logo"
+    app:layout_constraintVertical_chainStyle="packed" />
+
+  <TextView
+    android:id="@+id/detail_local_amount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="@+id/detail_logo"
+    app:layout_constraintEnd_toEndOf="@id/end_inset"
+    app:layout_constraintTop_toBottomOf="@+id/detail_amount" />
+
+  <TextView
+    android:id="@+id/detail_title"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_large"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:textColor="?android:textColorPrimary"
+    android:textSize="20sp"
+    app:layout_constraintEnd_toEndOf="@id/end_inset"
+    app:layout_constraintStart_toStartOf="@id/start_inset"
+    app:layout_constraintTop_toBottomOf="@+id/detail_logo" />
+
+  <TextView
+    android:id="@+id/detail_address"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_small"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:textColor="?android:textColorPrimary"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toEndOf="@id/end_inset"
+    app:layout_constraintStart_toStartOf="@id/start_inset"
+    app:layout_constraintTop_toBottomOf="@+id/detail_title" />
+
+  <TextView
+    android:id="@+id/detail_declined"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_small"
+    android:textColor="@color/declined_red"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toEndOf="@id/end_inset"
+    app:layout_constraintStart_toStartOf="@id/start_inset"
+    app:layout_constraintTop_toBottomOf="@+id/detail_address" />
+
+  <TextView
+    android:id="@+id/detail_notes"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_small"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toEndOf="@id/end_inset"
+    app:layout_constraintStart_toStartOf="@id/start_inset"
+    app:layout_constraintTop_toBottomOf="@+id/detail_declined" />
+
+  <TextView
+    android:id="@+id/detail_time"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_small"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toEndOf="@id/end_inset"
+    app:layout_constraintStart_toStartOf="@id/start_inset"
+    app:layout_constraintTop_toBottomOf="@+id/detail_notes" />
+
+  <android.support.constraint.ConstraintLayout
+    android:id="@+id/detail_history"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/detail_time">
+
+    <TextView
+      android:id="@+id/detail_transactions_label"
+      style="@style/HistoryLabel"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:text="@string/num_transactions"
+      app:layout_constraintEnd_toStartOf="@+id/detail_transactions"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+      android:id="@+id/detail_transactions"
+      style="@style/HistoryAmount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBaseline_toBaselineOf="@+id/detail_transactions_label"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/detail_transactions_label" />
+
+    <View
+      android:id="@+id/divider_0"
+      android:layout_width="0dp"
+      android:layout_height="1dp"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:background="@color/divider"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/detail_transactions_label" />
+
+    <TextView
+      android:id="@+id/detail_average_label"
+      style="@style/HistoryLabel"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:text="@string/average_spend"
+      app:layout_constraintEnd_toStartOf="@+id/detail_average"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/divider_0" />
+
+    <TextView
+      android:id="@+id/detail_average"
+      style="@style/HistoryAmount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBaseline_toBaselineOf="@+id/detail_average_label"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/detail_average_label" />
+
+    <View
+      android:id="@+id/divider_1"
+      android:layout_width="0dp"
+      android:layout_height="1dp"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:background="@color/divider"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/detail_average_label" />
+
+    <TextView
+      android:id="@+id/detail_total_label"
+      style="@style/HistoryLabel"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:text="@string/total_spend"
+      app:layout_constraintEnd_toStartOf="@+id/detail_total"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/divider_1" />
+
+    <TextView
+      android:id="@+id/detail_total"
+      style="@style/HistoryAmount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBaseline_toBaselineOf="@+id/detail_total_label"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/detail_total_label" />
+  </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?android:selectableItemBackground"
+  android:paddingBottom="@dimen/spacing_med"
+  android:paddingTop="@dimen/spacing_med">
+
+  <ImageView
+    android:id="@+id/transaction_logo"
+    android:layout_width="@dimen/transactions_logo_size"
+    android:layout_height="@dimen/transactions_logo_size"
+    android:layout_marginStart="@dimen/transactions_horizontal_spacing"
+    android:contentDescription="@null"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/transaction_title"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/transactions_horizontal_spacing"
+    android:layout_marginStart="@dimen/transactions_horizontal_spacing"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:textColor="?android:textColorPrimary"
+    android:textSize="16sp"
+    app:layout_constraintBottom_toTopOf="@+id/transaction_notes"
+    app:layout_constraintEnd_toStartOf="@+id/transaction_amount"
+    app:layout_constraintStart_toEndOf="@id/transaction_logo"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_chainStyle="packed" />
+
+  <TextView
+    android:id="@+id/transaction_notes"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:textSize="12sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="@id/transaction_title"
+    app:layout_constraintStart_toStartOf="@id/transaction_title"
+    app:layout_constraintTop_toBottomOf="@id/transaction_title" />
+
+  <TextView
+    android:id="@+id/transaction_amount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/transactions_horizontal_spacing"
+    app:layout_constraintBottom_toTopOf="@+id/transaction_local_amount"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_chainStyle="packed" />
+
+  <TextView
+    android:id="@+id/transaction_local_amount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="@id/transaction_amount"
+    app:layout_constraintTop_toBottomOf="@+id/transaction_amount" />
+</android.support.constraint.ConstraintLayout>

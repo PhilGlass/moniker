@@ -1,0 +1,34 @@
+<resources>
+  <string name="log_in">Log in</string>
+  <string name="sign_up">Don\'t have an account? Sign up</string>
+  <string name="login_error">Sorry, we weren\'t able to log you in to your account</string>
+  <string name="try_again">Try again</string>
+
+  <string name="transactions">Transactions</string>
+  <string name="balance">Balance</string>
+  <string name="spent_today">Spent today</string>
+
+  <string name="top_up">Top up</string>
+
+  <string name="no_transactions">You haven\'t spent any money yet</string>
+  <string name="refresh_error">Unable to refresh</string>
+
+  <string name="declined">DECLINED</string>
+  <string name="declined_card_blocked">Declined because your card was blocked</string>
+  <string name="declined_card_inactive">Declined because your card was frozen</string>
+  <string name="declined_insufficient_funds">Declined because you had insufficient funds</string>
+  <string name="declined_other">Declined</string>
+
+  <string name="num_transactions">Transactions</string>
+  <string name="average_spend">Average spend</string>
+  <string name="total_spend">Total spent</string>
+  <string name="top_ups">Top ups</string>
+  <string name="average_top_up">Average top up</string>
+  <string name="total_top_up">Total topped up</string>
+
+  <string name="today">Today</string>
+  <string name="yesterday">Yesterday</string>
+  <string name="date_time">%1$s, %2$s</string>
+
+  <string name="up">Up</string>
+</resources>

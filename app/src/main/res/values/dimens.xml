@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="match_parent" type="dimen">-1</item>
+
+  <dimen name="spacing_small">8dp</dimen>
+  <dimen name="spacing_med">12dp</dimen>
+  <dimen name="spacing_large">16dp</dimen>
+  <dimen name="spacing_huge">32dp</dimen>
+
+  <dimen name="preview_logo_size">160dp</dimen>
+
+  <dimen name="login_form_width">@dimen/match_parent</dimen>
+  <dimen name="login_logo_max_height">160dp</dimen>
+  <dimen name="loading_spinner_size">72dp</dimen>
+
+  <dimen name="toolbar_elevation">4dp</dimen>
+
+  <dimen name="transactions_horizontal_spacing">@dimen/spacing_large</dimen>
+  <dimen name="transactions_logo_size">36dp</dimen>
+  <dimen name="transactions_logo_corner_radius">4dp</dimen>
+  <dimen name="transactions_divider_height">1dp</dimen>
+
+  <dimen name="detail_logo_size">72dp</dimen>
+  <dimen name="detail_logo_corner_radius">6dp</dimen>
+</resources>

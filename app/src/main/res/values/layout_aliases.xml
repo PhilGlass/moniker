@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="details_with_map" type="layout">@layout/details</item>
+</resources>

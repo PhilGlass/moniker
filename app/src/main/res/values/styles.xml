@@ -1,0 +1,61 @@
+<resources>
+  <style name="Theme.Monzo" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <!-- We want our action bar to have the same height & title text size in both portrait & landscape -->
+    <item name="actionBarSize">56dp</item>
+    <item name="toolbarStyle">@style/Widget.Monzo.Toolbar</item>
+    <!-- Used as a window preview while the system is creating our Activity -->
+    <!-- This is replaced at runtime with the appropriate background for the Activity's real content -->
+    <item name="android:windowBackground">@drawable/preview</item>
+  </style>
+
+  <style name="Widget.Monzo.Toolbar" parent="Widget.AppCompat.Toolbar">
+    <item name="titleTextAppearance">@style/TextAppearance.Monzo.Toolbar.Title</item>
+  </style>
+
+  <style name="TextAppearance.Monzo.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <item name="android:textSize">20sp</item>
+  </style>
+
+  <style name="TextAppearance.Balance.Amount" parent="TextAppearance.AppCompat">
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textSize">34sp</item>
+    <item name="android:textColor">@android:color/white</item>
+  </style>
+
+  <style name="TextAppearance.Balance.Label" parent="TextAppearance.AppCompat">
+    <item name="android:textSize">15sp</item>
+    <item name="android:textColor">@color/translucent_white</item>
+  </style>
+
+  <style name="TextAppearance.Transaction.Amount" parent="TextAppearance.AppCompat">
+    <item name="android:textSize">22sp</item>
+  </style>
+
+  <style name="TextAppearance.Transaction.Declined" parent="TextAppearance.AppCompat">
+    <item name="android:textSize">15sp</item>
+    <item name="android:textColor">@color/declined_red</item>
+  </style>
+
+  <style name="TextAppearance.Transaction.LocalAmount" parent="TextAppearance.AppCompat">
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">?android:textColorTertiary</item>
+  </style>
+
+  <style name="TextAppearance.Detail.Amount" parent="TextAppearance.AppCompat">
+    <item name="android:textSize">28sp</item>
+  </style>
+
+  <style name="HistoryLabel">
+    <item name="android:paddingStart">@dimen/spacing_large</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+
+  <style name="HistoryAmount">
+    <item name="android:paddingEnd">@dimen/spacing_large</item>
+    <item name="android:textSize">16sp</item>
+  </style>
+</resources>

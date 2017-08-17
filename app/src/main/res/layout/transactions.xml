@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/transactions_screen"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:background="?colorPrimary"
+    android:elevation="@dimen/toolbar_elevation"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?colorPrimary"
+    android:elevation="@dimen/toolbar_elevation"
+    android:paddingBottom="@dimen/spacing_large"
+    android:paddingEnd="@dimen/spacing_large"
+    android:paddingStart="@dimen/spacing_large"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+      android:id="@+id/balance_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/balance"
+      android:textAppearance="@style/TextAppearance.Balance.Label"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+      android:id="@+id/balance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/TextAppearance.Balance.Amount"
+      app:layout_constraintBottom_toTopOf="@id/balance_label"
+      app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+      android:id="@+id/spent_today_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/spent_today"
+      android:textAppearance="@style/TextAppearance.Balance.Label"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+      android:id="@+id/spent_today"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/TextAppearance.Balance.Amount"
+      app:layout_constraintBottom_toTopOf="@id/spent_today_label"
+      app:layout_constraintEnd_toEndOf="parent" />
+  </android.support.constraint.ConstraintLayout>
+
+  <android.support.design.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/transactions_recycler"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@android:color/white" />
+
+    <ProgressBar
+      android:id="@+id/transactions_loading"
+      android:layout_width="@dimen/loading_spinner_size"
+      android:layout_height="@dimen/loading_spinner_size"
+      android:layout_gravity="center"
+      android:indeterminate="true" />
+
+    <TextView
+      android:id="@+id/transactions_empty"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginEnd="@dimen/spacing_huge"
+      android:layout_marginStart="@dimen/spacing_huge"
+      android:gravity="center_horizontal"
+      android:text="@string/no_transactions"
+      android:textColor="@color/empty"
+      android:textSize="20sp" />
+  </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
