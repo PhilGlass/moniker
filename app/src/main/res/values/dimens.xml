@@ -22,4 +22,6 @@
 
   <dimen name="detail_logo_size">72dp</dimen>
   <dimen name="detail_logo_corner_radius">6dp</dimen>
+
+  <dimen name="detail_slide_distance">320dp</dimen>
 </resources>

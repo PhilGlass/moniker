@@ -63,7 +63,9 @@ public final class TransactionsFragment extends BaseFragment<TransactionsView, P
 
   private void showDetails(Transaction transaction) {
     getFragmentManager().beginTransaction()
-        .setCustomAnimations(R.anim.slide_up_from_bottom, R.anim.no_op, R.anim.no_op, R.anim.slide_down_from_top)
+        // If we don't supply an exit animation, the transactions screen will be hidden as soon as the push
+        // animation begins (we want the details screen to slide over it).
+        .setCustomAnimations(R.animator.slide_up, R.animator.remain_visible, 0, R.animator.slide_down)
         .replace(android.R.id.content, DetailsFragment.newInstance(transaction))
         .addToBackStack(null)
         .commit();

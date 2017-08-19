@@ -53,7 +53,7 @@ public final class MainActivity extends DaggerAppCompatActivity {
 
   private void showLogin() {
     getSupportFragmentManager().beginTransaction()
-        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+        .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
         .replace(android.R.id.content, new LoginFragment())
         .commit();
   }

@@ -113,7 +113,7 @@ public final class DetailsFragment extends BaseFragment<DetailsView, Presenter> 
   }
 
   private void bindToolbar() {
-    final Toolbar toolbar = (Toolbar) requireView().findViewById(R.id.detail_toolbar);
+    final Toolbar toolbar = requireView().findViewById(R.id.detail_toolbar);
     if (toolbar != null) {
       if (transaction.topUp()) {
         toolbar.setTitle(R.string.top_up);
@@ -193,9 +193,10 @@ public final class DetailsFragment extends BaseFragment<DetailsView, Presenter> 
     fragment = SupportMapFragment.newInstance(options);
     fragment.setRetainInstance(true);
     getChildFragmentManager().beginTransaction()
-        // Works around child fragments immediately disappearing when their parent's exit
-        // animation begins: https://stackoverflow.com/q/14900738
-        .setCustomAnimations(R.anim.no_op, R.anim.no_op)
+        // If we don't supply custom animations, the map fragment will be immediately hidden when the details screen's
+        // pop animation begins. However, due to a bug in the support library it is actually the map fragment's *enter*
+        // animation that runs when the details screen is popped from the backstack...
+        .setCustomAnimations(R.animator.remain_visible, 0)
         .add(R.id.detail_map, fragment)
         .commit();
 

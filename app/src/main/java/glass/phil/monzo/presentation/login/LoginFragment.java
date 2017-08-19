@@ -89,7 +89,7 @@ public final class LoginFragment extends BaseFragment<LoginView, Presenter> impl
 
   private void goToTransactions() {
     getFragmentManager().beginTransaction()
-        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+        .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
         .replace(android.R.id.content, new TransactionsFragment())
         .commit();
   }
