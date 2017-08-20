@@ -1,5 +1,6 @@
 package glass.phil.monzo.presentation.util;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.joda.money.CurrencyUnit;
@@ -40,24 +41,24 @@ public final class CurrencyFormatterTest {
   }
 
   @Test public void unformatted() {
-    assertThat(CurrencyFormatter.unformatted(ConfigurationContexts.uk(), NEGATIVE)).isEqualTo("£12.34");
-    assertThat(CurrencyFormatter.unformatted(ConfigurationContexts.uk(), ZERO)).isEqualTo("£0.00");
-    assertThat(CurrencyFormatter.unformatted(ConfigurationContexts.uk(), POSITIVE)).isEqualTo("£12.34");
+    assertThat(CurrencyFormatter.unformatted(NEGATIVE)).isEqualTo("£12.34");
+    assertThat(CurrencyFormatter.unformatted(ZERO)).isEqualTo("£0.00");
+    assertThat(CurrencyFormatter.unformatted(POSITIVE)).isEqualTo("£12.34");
   }
 
   private static String formatBalance(Money amount) {
-    return CurrencyFormatter.formatBalance(ConfigurationContexts.uk(), amount).toString();
+    return CurrencyFormatter.formatBalance(InstrumentationRegistry.getTargetContext(), amount).toString();
   }
 
   private static String formatTransaction(Money amount) {
-    return CurrencyFormatter.formatTransaction(ConfigurationContexts.uk(), amount).toString();
+    return CurrencyFormatter.formatTransaction(InstrumentationRegistry.getTargetContext(), amount).toString();
   }
 
   private static String formatLocal(Money localAmount) {
-    return CurrencyFormatter.formatLocal(ConfigurationContexts.uk(), localAmount).toString();
+    return CurrencyFormatter.formatLocal(InstrumentationRegistry.getTargetContext(), localAmount).toString();
   }
 
   private static String formatDetail(Money amount) {
-    return CurrencyFormatter.formatDetail(ConfigurationContexts.uk(), amount, false).toString();
+    return CurrencyFormatter.formatDetail(InstrumentationRegistry.getTargetContext(), amount, false).toString();
   }
 }

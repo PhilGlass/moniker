@@ -106,8 +106,8 @@ public final class DetailsFragment extends BaseFragment<DetailsView, Presenter> 
       } else {
         historyContainer.setVisibility(View.VISIBLE);
         transactions.setText(String.valueOf(history.transactionCount()));
-        average.setText(CurrencyFormatter.unformatted(getActivity(), history.averageSpend()));
-        total.setText(CurrencyFormatter.unformatted(getActivity(), history.totalSpend()));
+        average.setText(CurrencyFormatter.unformatted(history.averageSpend()));
+        total.setText(CurrencyFormatter.unformatted(history.totalSpend()));
       }
     }
   }
@@ -206,7 +206,7 @@ public final class DetailsFragment extends BaseFragment<DetailsView, Presenter> 
       map.addMarker(new MarkerOptions().position(position)
           .icon(BitmapDescriptorFactory.defaultMarker(hsv[0]))
           .title(transaction.requireMerchant().name())
-          .snippet(CurrencyFormatter.unformatted(getActivity(), transaction.amount())));
+          .snippet(CurrencyFormatter.unformatted(transaction.amount())));
     });
   }
 }

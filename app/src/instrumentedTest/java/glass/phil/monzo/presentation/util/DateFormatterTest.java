@@ -1,5 +1,6 @@
 package glass.phil.monzo.presentation.util;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
@@ -79,10 +80,12 @@ public final class DateFormatterTest {
   }
 
   private static CharSequence formatDate(LocalDateTime dateTime) {
-    return DateFormatter.formatDate(ConfigurationContexts.uk(), CLOCK, dateTime.toInstant(ZoneOffset.UTC));
+    return DateFormatter.formatDate(InstrumentationRegistry.getTargetContext(), CLOCK,
+        dateTime.toInstant(ZoneOffset.UTC));
   }
 
   private static CharSequence formatDateTime(LocalDateTime dateTime) {
-    return DateFormatter.formatDateTime(ConfigurationContexts.uk(), CLOCK, dateTime.toInstant(ZoneOffset.UTC));
+    return DateFormatter.formatDateTime(InstrumentationRegistry.getTargetContext(), CLOCK,
+        dateTime.toInstant(ZoneOffset.UTC));
   }
 }

@@ -4,11 +4,18 @@ import android.content.Context;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import java.util.Locale;
+
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
 
 public final class FunctionalTestApp extends DaggerApplication {
   private TestApplicationComponent component;
+
+  @Override protected void attachBaseContext(Context base) {
+    super.attachBaseContext(LocaleHelper.createOverrideContext(base, Locale.UK));
+    LocaleHelper.setDefaultLocale(Locale.UK);
+  }
 
   @Override public void onCreate() {
     super.onCreate();
