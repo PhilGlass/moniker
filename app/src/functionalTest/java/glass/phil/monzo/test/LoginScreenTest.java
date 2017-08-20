@@ -128,7 +128,7 @@ public class LoginScreenTest {
         .addCategory(Intent.CATEGORY_DEFAULT)
         .setData(redirectUri)
         .setClassName(InstrumentationRegistry.getTargetContext(), MainActivity.class.getName());
-    InstrumentationRegistry.getTargetContext().startActivity(intent);
+    activityRule.getActivity().startActivity(intent);
     InstrumentationRegistry.getInstrumentation().waitForIdleSync();
   }
 }
