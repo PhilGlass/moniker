@@ -5,9 +5,11 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnitRunner;
 
+import com.squareup.rx2.idler.Rx2Idler;
+
 import glass.phil.monzo.test.server.MonzoServer;
 import glass.phil.monzo.test.util.Animations;
-import glass.phil.monzo.test.util.RxIdlingResource;
+import io.reactivex.plugins.RxJavaPlugins;
 
 public final class FunctionalTestRunner extends AndroidJUnitRunner {
   @Override public void onStart() {
@@ -18,7 +20,7 @@ public final class FunctionalTestRunner extends AndroidJUnitRunner {
 
   private void beforeFirstTest() {
     Animations.disableAll();
-    RxIdlingResource.install();
+    RxJavaPlugins.setInitIoSchedulerHandler(Rx2Idler.create("io"));
     MonzoServer.getInstance().start();
   }
 

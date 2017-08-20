@@ -175,11 +175,12 @@ dependencies {
 
   androidTestCompile junit
   androidTestCompile assertj
-  androidTestCompile "org.mockito:mockito-android:$mockitoVersion"
-  androidTestCompile 'com.android.support.test:runner:0.5'
 
   androidTestAnnotationProcessor autoValue
   androidTestAnnotationProcessor autoValueWith
+
+  androidTestInstrumentedCompile "org.mockito:mockito-android:$mockitoVersion"
+  androidTestInstrumentedCompile 'com.android.support.test:runner:0.5'
 
   def espressoVersion = '2.2.2'
   androidTestMainCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
@@ -189,6 +190,7 @@ dependencies {
   }
 
   androidTestMainCompile mockwebserver
+  androidTestMainCompile 'com.squareup.rx.idler:rx2-idler:0.9.0'
 
   androidTestMainAnnotationProcessor daggerCompiler
   androidTestMainAnnotationProcessor daggerAndroidProcessor
