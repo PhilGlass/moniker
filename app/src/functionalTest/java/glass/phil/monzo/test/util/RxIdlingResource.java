@@ -20,11 +20,6 @@ public final class RxIdlingResource {
     });
   }
 
-  public static void uninstall() {
-    RxJavaPlugins.setScheduleHandler(null);
-    Espresso.unregisterIdlingResources(COUNTING_RESOURCE);
-  }
-
   private RxIdlingResource() {
     throw new AssertionError("No instances.");
   }

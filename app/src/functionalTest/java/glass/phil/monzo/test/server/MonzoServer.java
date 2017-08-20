@@ -62,12 +62,6 @@ public final class MonzoServer {
     }
   }
 
-  public void stop() {
-    try {
-      server.shutdown();
-    } catch (IOException ignore) {}
-  }
-
   public HttpUrl url(String path) {
     return server.url(path);
   }

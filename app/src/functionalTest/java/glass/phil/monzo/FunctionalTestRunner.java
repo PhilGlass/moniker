@@ -23,8 +23,6 @@ public final class FunctionalTestRunner extends AndroidJUnitRunner {
   }
 
   private void afterLastTest() {
-    MonzoServer.getInstance().stop();
-    RxIdlingResource.uninstall();
     Animations.enableAll();
   }
 
