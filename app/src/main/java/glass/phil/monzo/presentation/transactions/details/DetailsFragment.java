@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -21,6 +21,7 @@ import org.threeten.bp.Clock;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import glass.phil.monzo.GlideApp;
 import glass.phil.monzo.R;
 import glass.phil.monzo.core.Bundles;
 import glass.phil.monzo.model.Clocks.Local;
@@ -128,13 +129,14 @@ public final class DetailsFragment extends BaseFragment<DetailsView, Presenter> 
 
   private void bindTransaction() {
     if (transaction.topUp()) {
-      Glide.clear(logo);
+      GlideApp.with(this).clear(logo);
       logo.setImageResource(R.drawable.ic_top_up);
       title.setText(R.string.top_up);
     } else {
-      Glide.with(getActivity())
+      GlideApp.with(this)
           .load(transaction.requireMerchant().logoUrl())
           .placeholder(Categories.iconFor(transaction.category()))
+          .transition(DrawableTransitionOptions.withCrossFade())
           .into(logo);
       title.setText(transaction.requireMerchant().name());
     }

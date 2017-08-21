@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.threeten.bp.Clock;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,7 +20,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
 import glass.phil.monzo.R;
-import glass.phil.monzo.model.Clocks.Local;
 import glass.phil.monzo.model.balance.BalanceManager.Balance;
 import glass.phil.monzo.model.transactions.Transaction;
 import glass.phil.monzo.presentation.base.BaseFragment;
@@ -30,6 +27,7 @@ import glass.phil.monzo.presentation.transactions.TransactionsContract.Presenter
 import glass.phil.monzo.presentation.transactions.TransactionsContract.TransactionsView;
 import glass.phil.monzo.presentation.transactions.TransactionsContract.ViewModel;
 import glass.phil.monzo.presentation.transactions.details.DetailsFragment;
+import io.reactivex.disposables.CompositeDisposable;
 
 import static glass.phil.monzo.presentation.util.CurrencyFormatter.formatBalance;
 
@@ -41,16 +39,16 @@ public final class TransactionsFragment extends BaseFragment<TransactionsView, P
   @BindView(R.id.transactions_loading) View loading;
   @BindView(R.id.transactions_empty) View empty;
 
-  @Inject @Local Clock clock;
+  @Inject TransactionsAdapter adapter;
 
-  private TransactionsAdapter adapter;
+  private final CompositeDisposable viewCreatedDisposable = new CompositeDisposable();
+
   private Snackbar snackbar;
   private View visibleView;
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     toolbar.setTitle(R.string.transactions);
-    adapter = new TransactionsAdapter(getActivity(), clock, this::showDetails);
     recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     recycler.addItemDecoration(new StickyHeaderDecoration(adapter));
     recycler.addItemDecoration(new TransactionDividerDecoration(getActivity(), adapter));
@@ -59,6 +57,8 @@ public final class TransactionsFragment extends BaseFragment<TransactionsView, P
     snackbar = Snackbar.make(recycler, R.string.refresh_error, Snackbar.LENGTH_LONG)
         .addCallback(new SnackbarCallback())
         .setAction(R.string.try_again, v -> presenter.retry());
+
+    viewCreatedDisposable.add(adapter.itemClicks().subscribe(this::showDetails));
   }
 
   private void showDetails(Transaction transaction) {
@@ -69,6 +69,11 @@ public final class TransactionsFragment extends BaseFragment<TransactionsView, P
         .replace(android.R.id.content, DetailsFragment.newInstance(transaction))
         .addToBackStack(null)
         .commit();
+  }
+
+  @Override public void onDestroyView() {
+    super.onDestroyView();
+    viewCreatedDisposable.clear();
   }
 
   @Override protected int layout() {

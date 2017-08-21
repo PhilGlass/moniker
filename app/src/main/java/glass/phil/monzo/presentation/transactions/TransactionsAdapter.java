@@ -1,6 +1,6 @@
 package glass.phil.monzo.presentation.transactions;
 
-import android.content.Context;
+import android.app.Activity;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,18 +10,22 @@ import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.Relay;
 
 import org.threeten.bp.Clock;
 
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
+import glass.phil.monzo.GlideRequests;
 import glass.phil.monzo.R;
-import glass.phil.monzo.core.Command;
 import glass.phil.monzo.model.Clocks.Local;
 import glass.phil.monzo.model.transactions.Transaction;
 import glass.phil.monzo.presentation.util.Categories;
@@ -29,23 +33,25 @@ import glass.phil.monzo.presentation.util.CurrencyFormatter;
 import glass.phil.monzo.presentation.util.DateFormatter;
 import glass.phil.monzo.presentation.util.DeclineReasons;
 import glass.phil.monzo.presentation.util.Outlines;
+import io.reactivex.Observable;
 
 import static glass.phil.monzo.presentation.util.TextViews.showText;
 
 final class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.TransactionHolder> implements
     StickyHeaderAdapter<TransactionsAdapter.HeaderHolder> {
   private final Clock clock;
-  private final Command<Transaction> onItemClick;
   private final LayoutInflater inflater;
   private final ViewOutlineProvider outlineProvider;
+  private final GlideRequests glide;
+  private final Relay<Transaction> itemClicks = PublishRelay.create();
 
   private List<Transaction> transactions = Collections.emptyList();
 
-  TransactionsAdapter(Context context, @Local Clock clock, Command<Transaction> onItemClick) {
+  @Inject TransactionsAdapter(Activity activity, @Local Clock clock, GlideRequests glide) {
     this.clock = clock;
-    this.onItemClick = onItemClick;
-    inflater = LayoutInflater.from(context);
-    outlineProvider = Outlines.roundRect(context.getResources().getDimension(R.dimen.transactions_logo_corner_radius));
+    this.glide = glide;
+    inflater = LayoutInflater.from(activity);
+    outlineProvider = Outlines.roundRect(activity.getResources().getDimension(R.dimen.transactions_logo_corner_radius));
   }
 
   void clear() {
@@ -58,6 +64,10 @@ final class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter
     final DiffCallback callback = new DiffCallback(transactions, newTransactions);
     transactions = newTransactions;
     DiffUtil.calculateDiff(callback, false).dispatchUpdatesTo(this);
+  }
+
+  Observable<Transaction> itemClicks() {
+    return itemClicks;
   }
 
   @Override public TransactionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -105,13 +115,13 @@ final class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter
     void bind(Transaction transaction) {
       this.transaction = transaction;
       if (transaction.topUp()) {
-        Glide.clear(logo);
+        glide.clear(logo);
         logo.setImageResource(R.drawable.ic_top_up);
         title.setText(R.string.top_up);
       } else {
-        Glide.with(itemView.getContext())
-            .load(transaction.requireMerchant().logoUrl())
+        glide.load(transaction.requireMerchant().logoUrl())
             .placeholder(Categories.iconFor(transaction.category()))
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(logo);
         title.setText(transaction.requireMerchant().name());
       }
@@ -139,7 +149,7 @@ final class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter
     }
 
     @Override public void onClick(View v) {
-      onItemClick.execute(transaction);
+      itemClicks.accept(transaction);
     }
   }
 
