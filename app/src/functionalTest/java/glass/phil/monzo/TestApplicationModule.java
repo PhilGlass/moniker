@@ -9,7 +9,7 @@ import glass.phil.monzo.presentation.MainActivity;
 import glass.phil.monzo.presentation.TestMainActivityModule;
 
 @Module abstract class TestApplicationModule {
-  @Binds abstract Application application(FunctionalTestApp application);
+  @Binds abstract Application application(MonzoApp application);
 
   @ContributesAndroidInjector(modules = TestMainActivityModule.class)
   abstract MainActivity mainActivity();

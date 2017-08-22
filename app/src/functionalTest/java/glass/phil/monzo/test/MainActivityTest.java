@@ -23,7 +23,7 @@ public final class MainActivityTest {
   @Inject TestHooks testHooks;
 
   @Before public void setUp() {
-    FunctionalTestApp.getComponent(InstrumentationRegistry.getTargetContext()).inject(this);
+    FunctionalTestApp.getTestComponent(InstrumentationRegistry.getTargetContext()).inject(this);
   }
 
   @Test public void initiallyShowsLoginScreen_ifLoggedOut() {

@@ -9,6 +9,7 @@ import glass.phil.monzo.model.ClockModule;
 import glass.phil.monzo.model.ConfigModule;
 import glass.phil.monzo.model.ModelModule;
 import glass.phil.monzo.model.StoreModule;
+import okhttp3.OkHttpClient;
 
 @Singleton
 @Component(modules = {
@@ -20,5 +21,9 @@ import glass.phil.monzo.model.StoreModule;
     ConfigModule.class,
     StoreModule.class
 }) interface ApplicationComponent extends AndroidInjector<MonzoApp> {
-  @Component.Builder abstract class Builder extends AndroidInjector.Builder<MonzoApp> {}
+  OkHttpClient okHttpClient();
+
+  @Component.Builder abstract class Builder extends AndroidInjector.Builder<MonzoApp> {
+    @Override public abstract ApplicationComponent build();
+  }
 }

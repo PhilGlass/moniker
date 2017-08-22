@@ -43,7 +43,7 @@ public class TransactionsScreenTest {
   @Inject TestHooks testHooks;
 
   @Before public void setUp() {
-    FunctionalTestApp.getComponent(InstrumentationRegistry.getTargetContext()).inject(this);
+    FunctionalTestApp.getTestComponent(InstrumentationRegistry.getTargetContext()).inject(this);
     testHooks.setLoggedIn();
   }
 
