@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
+import glass.phil.monzo.presentation.transactions.details.GoogleMapHacks;
 
 public class MonzoApp extends DaggerApplication {
   @Inject ApplicationComponent component;
@@ -15,6 +16,7 @@ public class MonzoApp extends DaggerApplication {
   @Override public void onCreate() {
     super.onCreate();
     AndroidThreeTen.init(this);
+    GoogleMapHacks.initialiseMaps(this);
   }
 
   @Override protected AndroidInjector<MonzoApp> applicationInjector() {
