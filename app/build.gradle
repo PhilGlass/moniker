@@ -136,10 +136,10 @@ dependencies {
   compile "com.squareup.moshi:moshi:$moshiVersion"
   compile "com.squareup.moshi:moshi-adapters:$moshiVersion"
 
-  def autoValue = 'com.google.auto.value:auto-value:1.4'
+  def autoValue = 'com.google.auto.value:auto-value:1.5'
   def autoValueWith = 'com.gabrielittner.auto.value:auto-value-with:1.0.0'
 
-  provided 'com.jakewharton.auto.value:auto-value-annotations:1.4'
+  provided 'com.jakewharton.auto.value:auto-value-annotations:1.5'
   annotationProcessor autoValue
   annotationProcessor autoValueWith
 
