@@ -11,6 +11,9 @@ import glass.phil.monzo.core.Generator;
     return () -> TestData.STATE;
   }
 
-  @Binds abstract Browser browser(RecordingBrowser browser);
+  @Provides static Browser browser() {
+    return RecordingBrowser.getInstance();
+  }
+
   @Binds abstract LoginContract.Presenter presenter(LoginPresenter presenter);
 }

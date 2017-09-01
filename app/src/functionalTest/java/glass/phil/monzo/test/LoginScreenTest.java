@@ -62,7 +62,7 @@ public class LoginScreenTest {
         .addQueryParameter("response_type", "code")
         .addQueryParameter("state", TestData.STATE)
         .build();
-    RecordingBrowser.getInstance(activityRule.getActivity()).assertPageLoaded(expectedUrl);
+    RecordingBrowser.getInstance().assertPageShown(expectedUrl);
   }
 
   @Test public void clickingSignUp_opensMonzoStoreListing() {
@@ -129,6 +129,5 @@ public class LoginScreenTest {
         .setData(redirectUri)
         .setClassName(InstrumentationRegistry.getTargetContext(), MainActivity.class.getName());
     activityRule.getActivity().startActivity(intent);
-    InstrumentationRegistry.getInstrumentation().waitForIdleSync();
   }
 }

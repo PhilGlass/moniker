@@ -184,9 +184,9 @@ dependencies {
   androidTestAnnotationProcessor autoValueWith
 
   androidTestInstrumentedCompile "org.mockito:mockito-android:$mockitoVersion"
-  androidTestInstrumentedCompile 'com.android.support.test:runner:0.5'
+  androidTestInstrumentedCompile 'com.android.support.test:runner:1.0.1'
 
-  def espressoVersion = '2.2.2'
+  def espressoVersion = '3.0.1'
   androidTestMainCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
   androidTestMainCompile "com.android.support.test.espresso:espresso-intents:$espressoVersion"
   androidTestMainCompile("com.android.support.test.espresso:espresso-contrib:$espressoVersion") {
