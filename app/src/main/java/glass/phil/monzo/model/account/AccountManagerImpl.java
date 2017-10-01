@@ -2,8 +2,10 @@ package glass.phil.monzo.model.account;
 
 import javax.inject.Inject;
 
+import glass.phil.monzo.core.Collections;
 import glass.phil.monzo.model.Store;
 import glass.phil.monzo.model.account.AccountApi.AccountsResponse.Account;
+import glass.phil.monzo.model.account.AccountApi.AccountsResponse.Account.AccountType;
 import io.reactivex.Single;
 
 final class AccountManagerImpl implements AccountManager {
@@ -22,7 +24,7 @@ final class AccountManagerImpl implements AccountManager {
         return Single.just(stored);
       }
       return api.accounts()
-          .map(response -> response.accounts().get(0))
+          .map(it -> Collections.first(it.accounts(), account -> account.type() == AccountType.PREPAID))
           .map(Account::id)
           .doOnSuccess(store::set);
     });

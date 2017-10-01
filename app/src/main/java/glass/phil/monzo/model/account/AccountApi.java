@@ -1,6 +1,7 @@
 package glass.phil.monzo.model.account;
 
 import com.google.auto.value.AutoValue;
+import com.squareup.moshi.Json;
 
 import java.util.List;
 
@@ -15,7 +16,13 @@ interface AccountApi {
     abstract List<Account> accounts();
 
     @AutoValue @AutoMoshi static abstract class Account {
+      enum AccountType {
+        @Json(name = "uk_prepaid") PREPAID,
+        @Json(name = "uk_retail") RETAIL
+      }
+
       abstract String id();
+      abstract AccountType type();
     }
   }
 }

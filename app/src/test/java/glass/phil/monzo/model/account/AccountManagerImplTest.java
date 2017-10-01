@@ -7,11 +7,13 @@ import org.mockito.junit.MockitoRule;
 import org.mockito.quality.Strictness;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.Arrays;
 
 import glass.phil.monzo.model.InMemoryStore;
 import glass.phil.monzo.model.Store;
 import glass.phil.monzo.model.account.AccountApi.AccountsResponse;
+import glass.phil.monzo.model.account.AccountApi.AccountsResponse.Account;
+import glass.phil.monzo.model.account.AccountApi.AccountsResponse.Account.AccountType;
 import io.reactivex.Single;
 
 import static glass.phil.monzo.model.StoreAssertions.assertThat;
@@ -34,11 +36,33 @@ public final class AccountManagerImplTest {
     verify(api, never()).accounts();
   }
 
-  @Test public void fromApi() {
-    when(api.accounts()).thenReturn(Single.just(accountsResponse("account_1")));
+  @Test public void prepaidOnly() {
+    when(api.accounts()).thenReturn(Single.just(accountsResponse(account("account_1", AccountType.PREPAID))));
 
     accountManager.accountId().test().assertValue("account_1");
     assertThat(store).hasStoredValue("account_1");
+  }
+
+  @Test public void prepaidBeforeCurrentAccount() {
+    final AccountsResponse response = accountsResponse(
+        account("account_1", AccountType.PREPAID),
+        account("account_2", AccountType.RETAIL)
+    );
+    when(api.accounts()).thenReturn(Single.just(response));
+
+    accountManager.accountId().test().assertValue("account_1");
+    assertThat(store).hasStoredValue("account_1");
+  }
+
+  @Test public void prepaidAfterCurrentAccount() {
+    final AccountsResponse response = accountsResponse(
+        account("account_1", AccountType.RETAIL),
+        account("account_2", AccountType.PREPAID)
+    );
+    when(api.accounts()).thenReturn(Single.just(response));
+
+    accountManager.accountId().test().assertValue("account_2");
+    assertThat(store).hasStoredValue("account_2");
   }
 
   @Test public void errorFetchingAccountsResponse() {
@@ -48,8 +72,11 @@ public final class AccountManagerImplTest {
     assertThat(store).hasNoStoredValue();
   }
 
-  private static AccountsResponse accountsResponse(String accountId) {
-    final AccountsResponse.Account account = new AutoValue_AccountApi_AccountsResponse_Account(accountId);
-    return new AutoValue_AccountApi_AccountsResponse(Collections.singletonList(account));
+  private static Account account(String accountId, AccountType type) {
+    return new AutoValue_AccountApi_AccountsResponse_Account(accountId, type);
+  }
+
+  private static AccountsResponse accountsResponse(Account... accounts) {
+    return new AutoValue_AccountApi_AccountsResponse(Arrays.asList(accounts));
   }
 }
