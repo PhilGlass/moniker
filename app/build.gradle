@@ -1,20 +1,19 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 
 ext {
   appName = 'Moniker'
-  supportVersion = '26.0.1'
+  supportVersion = '27.0.0'
 }
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion '26.0.1'
+  compileSdkVersion 27
+  buildToolsVersion '27.0.0'
 
   defaultConfig {
     applicationId 'glass.phil.monzo'
 
     minSdkVersion 23
-    targetSdkVersion 26
+    targetSdkVersion 27
 
     versionCode 1
     versionName '1.0'
@@ -37,6 +36,8 @@ android {
       applicationIdSuffix '.debug'
     }
   }
+
+  flavorDimensions 'testType'
 
   productFlavors {
     main {
@@ -92,119 +93,130 @@ android {
     abortOnError true
     warningsAsErrors true
   }
+
+  testOptions {
+    unitTests.includeAndroidResources = true
+  }
+
+  applicationVariants.all {
+    it.compileConfiguration.resolutionStrategy {
+      force "com.android.support:support-annotations:$supportVersion"
+      force 'com.google.code.findbugs:jsr305:3.0.2'
+    }
+
+    it.annotationProcessorConfiguration.resolutionStrategy {
+      // A bug in JavaPoet 1.9.0 breaks AutoMoshi, but the fix has not yet been released
+      // See: https://github.com/square/javapoet/pull/562
+      force 'com.squareup:javapoet:1.10.0-SNAPSHOT'
+    }
+  }
 }
 
 dependencies {
-  compile "com.android.support:support-annotations:$supportVersion"
-  compile "com.android.support:appcompat-v7:$supportVersion"
-  compile "com.android.support:recyclerview-v7:$supportVersion"
-  compile "com.android.support:design:$supportVersion"
-  compile "com.android.support:customtabs:$supportVersion"
-  compile 'com.android.support.constraint:constraint-layout:1.0.2'
+  implementation "com.android.support:support-annotations:$supportVersion"
+  implementation "com.android.support:appcompat-v7:$supportVersion"
+  implementation "com.android.support:recyclerview-v7:$supportVersion"
+  implementation "com.android.support:design:$supportVersion"
+  implementation "com.android.support:customtabs:$supportVersion"
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-  compile 'com.google.android.gms:play-services-maps:11.0.4'
+  implementation 'com.google.android.gms:play-services-maps:11.0.4'
 
   def daggerVersion = '2.11'
   def daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
   def daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-  compile "com.google.dagger:dagger:$daggerVersion"
+  implementation "com.google.dagger:dagger:$daggerVersion"
   annotationProcessor daggerCompiler
-  compile "com.google.dagger:dagger-android-support:$daggerVersion"
+  implementation "com.google.dagger:dagger-android-support:$daggerVersion"
   annotationProcessor daggerAndroidProcessor
   // Prevents warnings at compile time, as the dagger-android artifact makes use of these annotations
   // but does not declare them as a transitive dependency.
-  provided 'com.google.errorprone:error_prone_annotations:2.0.12'
+  compileOnly 'com.google.errorprone:error_prone_annotations:2.0.12'
 
-  def butterknifeVersion = '8.6.0'
-  compile "com.jakewharton:butterknife:$butterknifeVersion"
+  // The lint checks in Butter Knife 8.x are incompatible with AGP 3.x
+  def butterknifeVersion = '9.0.0-SNAPSHOT'
+  implementation "com.jakewharton:butterknife:$butterknifeVersion"
   annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 
-  compile 'io.reactivex.rxjava2:rxjava:2.1.1'
-  compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-  compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+  implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+  implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+  implementation 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
 
   def retrofitVersion = '2.3.0';
-  compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
-  compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-  compile "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+  implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+  implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
 
   def okhttpVersion = '3.8.1'
-  compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
+  implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
 
   def moshiVersion = '1.5.0'
-  compile "com.squareup.moshi:moshi:$moshiVersion"
-  compile "com.squareup.moshi:moshi-adapters:$moshiVersion"
+  implementation "com.squareup.moshi:moshi:$moshiVersion"
+  implementation "com.squareup.moshi:moshi-adapters:$moshiVersion"
 
   def autoValue = 'com.google.auto.value:auto-value:1.5'
   def autoValueWith = 'com.gabrielittner.auto.value:auto-value-with:1.0.0'
 
-  provided 'com.jakewharton.auto.value:auto-value-annotations:1.5'
+  implementation 'com.jakewharton.auto.value:auto-value-annotations:1.5'
   annotationProcessor autoValue
   annotationProcessor autoValueWith
 
   def autoValueParcelVersion = '0.2.5'
-  compile "com.ryanharter.auto.value:auto-value-parcel-adapter:$autoValueParcelVersion"
+  implementation "com.ryanharter.auto.value:auto-value-parcel-adapter:$autoValueParcelVersion"
   annotationProcessor "com.ryanharter.auto.value:auto-value-parcel:$autoValueParcelVersion"
 
   def autoMoshiVersion = '0.2.0'
-  provided "glass.phil.auto.moshi:auto-moshi-annotations:$autoMoshiVersion"
+  compileOnly "glass.phil.auto.moshi:auto-moshi-annotations:$autoMoshiVersion"
   annotationProcessor "glass.phil.auto.moshi:auto-moshi-processor:$autoMoshiVersion"
 
-  compile 'com.squareup.sqlbrite2:sqlbrite:2.0.0'
+  implementation 'com.squareup.sqlbrite2:sqlbrite:2.0.0'
 
-  compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
-  compile 'org.joda:joda-money:0.12'
+  implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+  implementation 'org.joda:joda-money:0.12'
 
   def glideVersion = '4.0.0'
-  compile "com.github.bumptech.glide:glide:$glideVersion"
-  compile "com.github.bumptech.glide:okhttp3-integration:$glideVersion"
+  implementation "com.github.bumptech.glide:glide:$glideVersion"
+  implementation "com.github.bumptech.glide:okhttp3-integration:$glideVersion"
   annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
-  compile 'ca.barrenechea.header-decor:header-decor:0.2.8'
+  implementation 'ca.barrenechea.header-decor:header-decor:0.2.8'
 
   def junit = 'junit:junit:4.12'
   def assertj = 'org.assertj:assertj-core:2.8.0'
   def mockitoVersion = '2.8.9'
   def mockwebserver = "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
 
-  testCompile junit
-  testCompile assertj
-  testCompile "org.mockito:mockito-inline:$mockitoVersion"
-  testCompile mockwebserver
-  testCompile 'org.robolectric:robolectric:3.4.2'
+  testImplementation junit
+  testImplementation assertj
+  testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+  testImplementation mockwebserver
+  testImplementation 'org.robolectric:robolectric:3.5.1'
 
   testAnnotationProcessor autoValue
   testAnnotationProcessor autoValueWith
 
-  androidTestCompile junit
-  androidTestCompile assertj
+  androidTestImplementation junit
+  androidTestImplementation assertj
 
   androidTestAnnotationProcessor autoValue
   androidTestAnnotationProcessor autoValueWith
 
-  androidTestInstrumentedCompile "org.mockito:mockito-android:$mockitoVersion"
-  androidTestInstrumentedCompile 'com.android.support.test:runner:1.0.1'
+  androidTestInstrumentedImplementation "org.mockito:mockito-android:$mockitoVersion"
+  androidTestInstrumentedImplementation 'com.android.support.test:runner:1.0.1'
 
   def espressoVersion = '3.0.1'
-  androidTestMainCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
-  androidTestMainCompile "com.android.support.test.espresso:espresso-intents:$espressoVersion"
-  androidTestMainCompile("com.android.support.test.espresso:espresso-contrib:$espressoVersion") {
+  androidTestMainImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+  androidTestMainImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+  androidTestMainImplementation("com.android.support.test.espresso:espresso-contrib:$espressoVersion") {
     transitive false
   }
 
-  androidTestMainCompile mockwebserver
-  androidTestMainCompile 'com.squareup.rx.idler:rx2-idler:0.9.0'
+  androidTestMainImplementation mockwebserver
+  androidTestMainImplementation 'com.squareup.rx.idler:rx2-idler:0.9.0'
 
   androidTestMainAnnotationProcessor daggerCompiler
   androidTestMainAnnotationProcessor daggerAndroidProcessor
-}
-
-configurations.all {
-  resolutionStrategy {
-    force "com.android.support:support-annotations:$supportVersion"
-    force 'com.google.code.findbugs:jsr305:3.0.2'
-  }
 }
 
 static def stringLiteral(content) { /"$content"/ }
